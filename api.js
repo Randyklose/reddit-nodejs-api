@@ -17,57 +17,18 @@ var redditAPI = reddit(connection);
 // It's request time!
 
 
-// return redditAPI.createUser({
-//   username: 'hello23',
-//   password: 'xxx'
-// })
-// .then(function(user) {
-//       redditAPI.createPost({
-//       title: 'hi reddit!',
-//       url: 'https://www.reddit.com',
-//       userId: user.id
-// })
-// })
-
-// .then(function(post) {
-//   console.log(post);
-// })
-// .catch(function(err) {
-//     console.log("There was an: ",err)
-// })
-
-redditAPI.getAllPosts({})
+function getSinglePost() {
+  
+  return redditAPI.getAllPosts({},1)
 .then(function(result){
   
-  var posts= [];
-  result.forEach(function(row){
-    var post = posts.find(function(post){
-           return post.userId === row.userId;
-    })
-  
-  if(!post) {
-    post = {
-      id:row.postId,
-      title:row.postTitle,
-      url:row.url,
-      createdAt:row.postCreatedAt,
-      UpdatedAt:row.postUpdatedAt,
-      user:[]
-    }
+var obj = result[0];
+return obj
+})
+}
 
-      posts.push(post)
-  }
-      post.user.push({
-      id:row.userId,
-      username:row.username,
-      createdAt:row.userCreatedAt,
-      updatedAt:row.userUpdatedAt
-    })
-  
-})
-return posts;
-})
-.then(function(result){
-  console.log(JSON.stringify(result,null,4));
+getSinglePost()
+.then(function(result) {
+  console.log(JSON.stringify(result,null,4))
   connection.end()
-  })
+})

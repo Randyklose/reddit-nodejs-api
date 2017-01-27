@@ -26,7 +26,7 @@ module.exports = function RedditAPI(conn) {
                             'SELECT id, username, createdAt, updatedAt FROM users WHERE id = ?', [result.insertId]);
                     })
                     .then(function(result) {
-                        return (null, result[0]);
+                        return (result[0]);
                     });
             },
 
@@ -46,7 +46,7 @@ module.exports = function RedditAPI(conn) {
                     });
 
             },
-            getAllPosts: function(options) {
+            getAllPosts: function(options, id) {
                     // In case we are called without an options parameter, shift all the parameters manually
 
                     var limit = options.numPerPage || 25; // if options.numPerPage is "falsy" then use 25
@@ -54,13 +54,11 @@ module.exports = function RedditAPI(conn) {
 
                     return conn.query(`
         SELECT posts.id as postId, posts.title as postTitle,
-        posts.url, posts.userId as pUserId, posts.createdAt as postCreatedAt,
-        posts.updatedAt as postUpdatedAt, users.id as userId, users.username,
-        users.createdAt as userCreatedAt, users.updatedAt as userUpdatedAt
+        posts.url, users.username as username
         
         FROM posts JOIN users ON posts.userId = users.id
-        ORDER BY posts.createdAt DESC
-        LIMIT ? OFFSET ?`, [limit, offset])
+        WHERE posts.id = ?
+        LIMIT ? OFFSET ?`, [id, limit, offset])
                         .then(function(results) {
                             return (results);
                         })
