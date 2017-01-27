@@ -17,18 +17,3 @@ var redditAPI = reddit(connection);
 // It's request time!
 
 
-function getSinglePost() {
-  
-  return redditAPI.getAllPosts({},1)
-.then(function(result){
-  
-var obj = result[0];
-return obj
-})
-}
-
-getSinglePost()
-.then(function(result) {
-  console.log(JSON.stringify(result,null,4))
-  connection.end()
-})

@@ -23,3 +23,11 @@ CREATE TABLE `posts` (
   KEY `userId` (`userId`), -- why did we add this here? ask me :)
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL
 );
+
+-- FOREIGN CONSTRAINT CODE
+    ALTER TABLE posts 
+        ADD COLUMN subredditId INT;
+    ALTER TABLE posts
+        ADD FOREIGN KEY (`subredditId`)
+        REFERENCES 
+        subreddits(`id`);
