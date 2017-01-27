@@ -25,7 +25,8 @@ redditAPI.createUser({
     redditAPI.createPost({
       title: 'hi reddit!',
       url: 'https://www.reddit.com',
-      userId: user.id
+      userId: user.id,
+      subredditId: 1
     }, function(err, post) {
       if (err) {
         console.log(err);

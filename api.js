@@ -17,3 +17,6 @@ var redditAPI = reddit(connection);
 // It's request time!
 
 
+redditAPI.getAllPost({}).then(function(result) {
+  console.log(result)
+})
